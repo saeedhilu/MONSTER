@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head Phone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            margin-top:70px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-body {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: black;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .precio {
+            margin-right: 5px;
+        }
+
+        .precioOferta {
+            color: red;
+            text-decoration: line-through;
+        }
+
+        .precioProd {
+            font-weight: bold;
+        }
+
+        .aFavs svg,
+        .alCarrito svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .card.esFav {
+            border: 2px solid gold;
+        }
+
+        .card.enCarrito {
+            border: 2px solid green;
+        }
+
+        /* Existing styles for the "Head Phone" page */
+
+        .navbar {
+            background-color: white;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar h2,
+        .navbar h4 {
+            color: #fff;
+        }
+
+        .navbar h4 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar h4 a:hover {
+            color: #dee2e6;
+        }
+
+        .premium-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background-color: #343a40;
+            border: 2px solid #45a049;
+            border-radius: 25px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .premium-button:hover {
+            border-color: white;
+            background-color: black;
+        }
+
+        .premium-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            color: #fff;
+        }
+        @mixin flex($dir: row, $wrap: wrap, $ai: center, $jc: center, $ac: center) {
+  display: flex;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
+  align-items: $ai;
+  justify-content: $jc;
+  align-content: $ac;
+}
+@mixin image(
+  $url: "",
+  $size: cover,
+  $posicion: center,
+  $repeat: no-repeat,
+  $parallax: false
+) {
+  @if $url != "" {
+    background-image: url($url);
+  }
+  background-size: $size;
+  background-position: $posicion;
+  background-repeat: $repeat;
+  @if $parallax == true {
+    background-attachment: fixed;
+  }
+}
+$negro: #1d1d1d;
+$blanco: #fff;
+$primario: #b82d44;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto:wght@300;400;900&display=swap");
+
+:root {
+  --currencyPrefix: "$";
+}
+body {
+  overflow-x: hidden;
+  color: #666;
+  left: 0;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+  transition: ease all 0.3s;
+  * {
+    font-family: "Roboto Condensed", sans-serif;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+  a {
+    color: #666;
+    text-decoration: none;
+  }
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+}
+
+.contenedorCards {
+  @include flex;
+  min-height: 100vh;
+  padding: 20px 0;
+  box-sizing: border-box;
+  .card {
+    width: 300px;
+    transition: ease all 0.3s;
+    &.esFav {
+      .wrapper {
+        .infoProd {
+          .actions {
+            .action {
+              &.aFavs {
+                transform: rotateX(360deg) scale(1.2);
+                svg {
+                  path,
+                  circle {
+                    fill: $blanco;
+                    transition-delay: 0.2s;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &.enCarrito {
+      .wrapper {
+        .infoProd {
+          .actions {
+            .action {
+              &.alCarrito {
+                .inCart {
+                  transform: scale(1);
+                }
+                .outCart {
+                  transform: scale(0);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .wrapper {
+      margin: 60px 10px 10px 10px;
+      padding-top: 300px;
+      box-sizing: border-box;
+      position: relative;
+      box-shadow: 0 0 20px 10px rgba($negro, 0.1);
+      transition: ease all 0.3s;
+      &:hover {
+        transform: translateY(-10px);
+        .imgProd {
+          height: 350px;
+        }
+      }
+      .colorProd {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background-color: $primario;
+      }
+      .imgProd {
+        @include image("", contain, center bottom);
+        position: absolute;
+        bottom: calc(100% - 300px);
+        width: 100%;
+        height: 300px;
+        transition: ease all 0.3s;
+      }
+      .infoProd {
+        @include flex(column, nowrap);
+        height: 170px;
+        padding: 20px;
+        box-sizing: border-box;
+        p {
+          width: 100%;
+          font-size: 14px;
+          text-align: center;
+        }
+        .nombreProd {
+          font-family: "Roboto", sans-serif;
+          margin-bottom: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+        }
+        .actions {
+          @include flex($jc: space-between);
+          width: 100%;
+          margin-top: auto;
+          padding-top: 10px;
+          .preciosGrupo {
+            flex-grow: 1;
+            position: relative;
+            .precio {
+              font-family: "Roboto", sans-serif;
+              color: $negro;
+              font-size: 25px;
+              font-weight: 600;
+              text-align: left;
+              &.precioOferta {
+                position: absolute;
+                left: 0;
+                top: -15px;
+                color: red;
+                font-size: 15px;
+                text-decoration: line-through;
+                &:before {
+                  font-size: 12px;
+                }
+              }
+              &:before {
+                content: var(--currencyPrefix);
+                font-size: 20px;
+              }
+            }
+          }
+          .action {
+            @include flex;
+            margin-left: 15px;
+            width: 35px;
+            height: 35px;
+            position: relative;
+            transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all 0.3s;
+            cursor: pointer;
+            color: $negro;
+            svg {
+              position: absolute;
+              transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all 0.3s;
+              path,
+              circle {
+                stroke: currentColor;
+                fill: transparent;
+                transition: ease all 0.3s;
+              }
+            }
+            &.aFavs {
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              z-index: 1;
+              width: 25px;
+              height: 25px;
+              color: $blanco;
+            }
+            &.alCarrito {
+              svg {
+                &.inCart {
+                  transform: scale(0);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+    </style>
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark" style="z-index: 1;">
+        <div class="container">
+            <div class="d-flex justify-content-between" style="width: 100vw; align-items: center;height: 60px;">
+                <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjQ0IiB2aWV3Qm94PSIwIDAgMTQgNDQiIHdpZHRoPSIxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTMuMDcyOSAxNy42ODI1YTMuNjEgMy42MSAwIDAgMCAtMS43MjQ4IDMuMDM2NSAzLjUxMzIgMy41MTMyIDAgMCAwIDIuMTM3OSAzLjIyMjMgOC4zOTQgOC4zOTQgMCAwIDEgLTEuMDk0OCAyLjI2MThjLS42ODE2Ljk4MTItMS4zOTQzIDEuOTYyMy0yLjQ3ODcgMS45NjIzcy0xLjM2MzMtLjYzLTIuNjEzLS42M2MtMS4yMTg3IDAtMS42NTI1LjY1MDctMi42NDQuNjUwN3MtMS42ODM0LS45MDg5LTIuNDc4Ny0yLjAyNDNhOS43ODQyIDkuNzg0MiAwIDAgMSAtMS42NjI4LTUuMjc3NmMwLTMuMDk4NCAyLjAxNC00Ljc0MDUgMy45OTY5LTQuNzQwNSAxLjA1MzUgMCAxLjkzMTQuNjkxOSAyLjU5MjQuNjkxOS42MyAwIDEuNjExMi0uNzMzMyAyLjgwOTItLjczMzNhMy43NTc5IDMuNzU3OSAwIDAgMSAzLjE2MDQgMS41ODAyem0tMy43Mjg0LTIuODkxOGEzLjU2MTUgMy41NjE1IDAgMCAwIC44NDY5LTIuMjIgMS41MzUzIDEuNTM1MyAwIDAgMCAtLjAzMS0uMzIgMy41Njg2IDMuNTY4NiAwIDAgMCAtMi4zNDQ1IDEuMjA4NCAzLjQ2MjkgMy40NjI5IDAgMCAwIC0uODc3OSAyLjE1ODUgMS40MTkgMS40MTkgMCAwIDAgLjAzMS4yODkyIDEuMTkgMS4xOSAwIDAgMCAuMjE2OS4wMjA3IDMuMDkzNSAzLjA5MzUgMCAwIDAgMi4xNTg2LTEuMTM2OHoiLz48L3N2Zz4=" alt=""
+                    class="nav-logo" style="width: 25px;height: 84px;" >
+                    <h4 style="color: #45a049 !important;">Welcome, {{ request.user.username }}</h4>
+                <h4><a href="{% url 'logout' %}" class="premium-button" >Logout</a></h4>
+            </div>
+        </div> 
+    </nav>
+   
+    <div class="contenedorCards">
+        <div class="card">
+            <div class="wrapper">
+                <div class="colorProd"></div>
+                <div class="imgProd" style="background-image: url(https://firebasestorage.googleapis.com/v0/b/fotos-3cba1.appspot.com/o/batman.png?alt=media&token=bcce964a-7224-4e47-b619-265e93b5311e);"></div>
+                <div class="infoProd">
+                    <p class="nombreProd">ARTFX DC UNIVERSE Batman Package</p>
+                    <div class="actions">
+                        <div class="preciosGrupo">
+                            <p class="precio precioOferta">9,999</p>
+                            <p class="precio precioProd">9,999</p>
+                        </div>
+                        <div class="action aFavs">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                                <path d="M47 5c-6.5 0-12.9 4.2-15 10-2.1-5.8-8.5-10-15-10A15 15 0 0 0 2 20c0 13 11 26 30 39 19-13 30-26 30-39A15 15 0 0 0 47 5z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="action alCarrito">
+                            <svg class="inCart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                                <title>Quitar del carrito</title>
+                                <path d="M30 22H12M2 6h6l10 40h32l3.2-9.7"></path>
+                                <circle cx="20" cy="54" r="4"></circle>
+                                <circle cx="46" cy="54" r="4"></circle>
+                                <circle cx="46" cy="22" r="16"></circle>
+                                <path d="M53 18l-8 9-5-5"></path>
+                            </svg>
+                            <svg class="outCart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                                <title>Agregar al carrito</title>
+                                <path d="M2 6h10l10 40h32l8-24H16"></path>
+                                <circle cx="23" cy="54" r="4"></circle>
+                                <circle cx="49" cy="54" r="4"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat the card structure for other products -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-LC3pqE+B4vYjBIyCk8pF8t7VH5gpj63Jz2eXZsazpKmrtHgHtlKPyO2Dgm4J3XIp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript for wishlist and cart functionality
+        $(document).ready(function () {
+            $(".action.aFavs").click(function () {
+                $(this).toggleClass("esFav");
+            });
+
+            $(".action.alCarrito").click(function () {
+                $(this).parents(".card").toggleClass("enCarrito");
+            });
+        });
+    </script>
+        
+</body>
+
+</html>
